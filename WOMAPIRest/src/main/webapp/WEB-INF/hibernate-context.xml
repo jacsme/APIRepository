@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<context:property-placeholder location="/WEB-INF/database.properties" />
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${app.jdbc.driverClassName}" />
+		<property name="url" value="${app.jdbc.url}" />
+		<property name="username" value="${app.jdbc.username}" />
+		<property name="password" value="${app.jdbc.password}" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.wom.api.model.Category</value>
+				<value>com.wom.api.model.LoginUser</value>
+				<value>com.wom.api.model.Staff</value>
+				<value>com.wom.api.model.CustomerCart</value>
+				<value>com.wom.api.model.JobList</value>
+				<value>com.wom.api.model.StockControl</value>
+				<value>com.wom.api.model.SalesOrderInfo</value>
+				<value>com.wom.api.model.SalesOrderDetails</value>
+				<value>com.wom.api.model.ItemBudgetPlanning</value>
+				<value>com.wom.api.model.ProductQuotation</value>
+				<value>com.wom.api.model.PurchaseFundingPlanning</value>
+				<value>com.wom.api.model.MailBox</value>
+				<value>com.wom.api.model.PurchaseApproval</value>
+				<value>com.wom.api.model.PurchaseApproved</value>
+				<value>com.wom.api.model.RoleAssign</value>
+				<value>com.wom.api.model.PurchaseOrder</value>
+				<value>com.wom.api.model.StockProducts</value>
+				<value>com.wom.api.model.PurchaseOrderProducts</value>
+				<value>com.wom.api.model.ReceivingInvoice</value>
+				<value>com.wom.api.model.Customer</value>
+				<value>com.wom.api.model.PurchaseRequest</value>
+				<value>com.wom.api.model.AccountTransaction</value>
+				<value>com.wom.api.model.Delivery</value>
+				<value>com.wom.api.model.BoxDelivery</value>
+				<value>com.wom.api.model.Supplier</value>
+				<value>com.wom.api.model.ProductSupplier</value>
+				<value>com.wom.api.model.Store</value>
+				<value>com.wom.api.model.AddressInfo</value>
+				<value>com.wom.api.model.Product</value>
+				<value>com.wom.api.model.CustomerCard</value>
+				<value>com.wom.api.model.CustomerRecharge</value>
+				<value>com.wom.api.model.BudgetList</value>
+				<value>com.wom.api.model.Voucher</value>
+				<value>com.wom.api.model.Inventory</value>
+				<value>com.wom.api.model.DeliveryCoverage</value>
+				<value>com.wom.api.model.ProductImage</value>
+				<value>com.wom.api.model.JobListSO</value>
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.connection.pool_size">10</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="loginDao" class="com.wom.api.dao.LoginDaoImpl"></bean>
+	<bean id="loginService" class="com.wom.api.services.LoginServiceImpl"></bean>
+	
+	<bean id="itembudgetplanningDao" class="com.wom.api.dao.ItemBudgetPlanningDaoImpl"></bean>
+	<bean id="itembudgetplanningService" class="com.wom.api.services.ItemBudgetPlanningServiceImpl"></bean>
+	
+	<bean id="stockcontrolDao" class="com.wom.api.dao.StockControlDaoImpl"></bean>
+	<bean id="stockcontrolService" class="com.wom.api.services.StockControlServiceImpl"></bean>
+	
+	<bean id="customercartDao" class="com.wom.api.dao.CustomerCartDaoImpl"></bean>
+	<bean id="customercartService" class="com.wom.api.services.CustomerCartServiceImpl"></bean>
+	
+	<bean id="reportDao" class="com.wom.api.dao.ReportDaoImpl"></bean>
+	<bean id="reportService" class="com.wom.api.services.ReportServiceImpl"></bean>
+	
+	<bean id="salesorderDao" class="com.wom.api.dao.SalesOrderDaoImpl"></bean>
+	<bean id="salesService" class="com.wom.api.services.SalesOrderServiceImpl"></bean>
+	
+	<bean id="productDao" class="com.wom.api.dao.ProductDaoImpl"></bean>
+	<bean id="productService" class="com.wom.api.services.ProductServiceImpl"></bean>
+	
+	<bean id="deliveryDao" class="com.wom.api.dao.DeliveryDaoImpl"></bean>
+	<bean id="deliveryService" class="com.wom.api.services.DeliveryServiceImpl"></bean>
+	
+	<bean id="supplierDao" class="com.wom.api.dao.SupplierDaoImpl"></bean>
+	<bean id="supplierService" class="com.wom.api.services.SupplierServiceImpl"></bean>
+	
+	<bean id="purchasefundingDao" class="com.wom.api.dao.PurchaseFundingDaoImpl"></bean>
+	<bean id="purchasefundingService" class="com.wom.api.services.PurchaseFundingServiceImpl"></bean>
+	
+	<bean id="mailboxDao" class="com.wom.api.dao.MailBoxDaoImpl"></bean>
+	<bean id="mailboxService" class="com.wom.api.services.MailBoxServiceImpl"></bean>
+	
+	<bean id="joblistDao" class="com.wom.api.dao.JobListDaoImpl"></bean>
+	<bean id="joblistService" class="com.wom.api.services.JobListServiceImpl"></bean>
+	
+	<bean id="purchaseapprovalDao" class="com.wom.api.dao.PurchaseApprovalDaoImpl"></bean>
+	<bean id="purchaseapprovalService" class="com.wom.api.services.PurchaseApprovalServiceImpl"></bean>
+	
+	<bean id="purchaseorderDao" class="com.wom.api.dao.PurchaseOrderDaoImpl"></bean>
+	<bean id="purchaseorderService" class="com.wom.api.services.PurchaseOrderServiceImpl"></bean>
+	
+	<bean id="receivinginvoiceDao" class="com.wom.api.dao.ReceivingInvoiceDaoImpl"></bean>
+	<bean id="receivinginvoiceService" class="com.wom.api.services.ReceivingInvoiceServiceImpl"></bean>
+	
+	<bean id="customerDao" class="com.wom.api.dao.CustomerDaoImpl" ></bean>
+	<bean id="customerService" class="com.wom.api.services.CustomerServiceImpl"></bean>
+	
+	<bean id="storeDao" class="com.wom.api.dao.StoreDaoImpl" ></bean>
+	<bean id="storeService" class="com.wom.api.services.StoreServiceImpl"></bean>
+	
+	<bean id="invoiceDao" class="com.wom.api.dao.InvoiceDaoImpl" ></bean>
+	<bean id="invoiceService" class="com.wom.api.services.InvoiceServiceImpl"></bean>
+</beans>
