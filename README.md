@@ -1,1 +1,2 @@
 # APIRepository
+This project is for Online shopping API, develop in Java 1.8 with Spring MVC 4.0 with Restful WS, Hibernate 4.0 and MySQL 6, JSON, iText Reporting tool and Amazon Web Services. The project is catering both customer mobile app and administration mobile app. It will add, edit, update and delete data from Database depending on the request of the apps. It will generate a JSON response that is ready to use by the apps.
